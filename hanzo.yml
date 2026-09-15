@@ -1,0 +1,28 @@
+# Hanzo CI/CD — ads. .github/workflows/cicd.yml is triggers and an import of
+# hanzoai/ci; everything it runs is here.
+
+test:
+  # Frozen: the gate resolves the same tree the Dockerfile does.
+  - name: install
+    run: |
+      set -e
+      corepack enable
+      pnpm install --frozen-lockfile
+
+  # The image's build line, run first. A vite build that emits nothing still
+  # exits 0, hence the file tests.
+  - name: build
+    run: |
+      set -e
+      pnpm build
+      test -s dist/index.html
+      test -d dist/assets
+
+images:
+  - name: ads
+    context: .
+    dockerfile: Dockerfile
+    repo: ghcr.io/hanzoai/ads
+    platforms: [linux/amd64]
+    # No build secrets. A person's credential comes from hanzo.id at sign-in;
+    # an ad network's token stays in KMS and is read server-side at launch.

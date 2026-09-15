@@ -1,0 +1,46 @@
+/* This app's own rules: inputs, and the rail on a narrow window. Tokens come
+   from @hanzo/ui/theme.css. */
+
+.field {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  color-scheme: dark light;
+}
+
+/* gui writes a prop's rule as `:root ._x` after this sheet loads; `:root` plus
+   a doubled class outweighs it without !important. */
+@media (max-width: 720px) {
+  :root .shell.shell {
+    flex-direction: column;
+  }
+  :root .rail.rail {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  :root .ways.ways {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+  }
+  :root .ways.ways > * {
+    flex: none;
+  }
+  :root .whose.whose {
+    flex-direction: row;
+    align-items: center;
+  }
+}
