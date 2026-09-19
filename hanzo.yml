@@ -26,3 +26,12 @@ images:
     platforms: [linux/amd64]
     # No build secrets. A person's credential comes from hanzo.id at sign-in;
     # an ad network's token stays in KMS and is read server-side at launch.
+
+# ads.hanzo.ai is bytes: the export is the whole product and its API is
+# api.hanzo.ai. The site lane publishes the `build` gate's dist to
+# s3://hanzo-sites/hanzo/ads, where the edge serves it with no pod. The image
+# lane above goes when the ads Deployment does.
+site:
+  slug: ads
+  dir: dist
+  on: [main]
